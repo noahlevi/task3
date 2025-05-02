@@ -114,7 +114,7 @@ async fn stream_block_updates() -> anyhow::Result<()> {
     // updates
     while let Some(msg) = rx.recv().await {
         if let Some(UpdateOneof::Block(subscribe_update_block)) = msg.update_oneof {
-            if let Err(e) = process_tx_update(subscribe_update_block, &config).await {
+            if let Err(e) = process_blk_update(subscribe_update_block, &config).await {
                 anyhow::anyhow!("Error processing account update: {:?}", e);
                 continue;
             }
@@ -124,7 +124,7 @@ async fn stream_block_updates() -> anyhow::Result<()> {
     Ok(())
 }
 
-async fn process_tx_update(blk: SubscribeUpdateBlock, config: &Config) -> anyhow::Result<()> {
+async fn process_blk_update(blk: SubscribeUpdateBlock, config: &Config) -> anyhow::Result<()> {
     println!("Received block update: {:?}", blk);
     let rpc_client =
         solana_client::nonblocking::rpc_client::RpcClient::new(DEFAULT_GEYSER_ENDPOINT.to_string());
