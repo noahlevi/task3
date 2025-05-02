@@ -1,0 +1,3 @@
+sender_keypair: <your-base58-encoded-private-key>
+recipient_pubkey: <recipient-public-key>
+transfer_amount_sol: 0.001
